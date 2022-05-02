@@ -1,0 +1,239 @@
+{% extends 'crm/base.html' %} {% block page_title %} CRM
+<script>
+    $(document).ready(function() {
+        $("#search_input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#employee-table tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+{% endblock %} {% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <!-- Button trigger modal-->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_add_new_customer">
+      Create +
+    </button>
+    <div class="container-fluid" style="overflow-x: scroll;-webkit-overflow-scrolling: touch;">
+      <table class="table table-striped">
+        <thead>
+          <tr class="" >
+
+            <th scope="col-sm-2">Suspect</th>
+            <th scope="col-sm-2">Prospect</th>
+            <th scope="col-sm-2">Approch</th>
+            <th scope="col-sm-2">Negotiate</th>
+            <th scope="col-sm-2">Won</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% if customers %}
+          <tr class=" " style="background: linear-gradient(160deg, #778899, #f5f5f5)">
+        
+            <td class="col-sm-2  "><div class="card " style="width:10rem; ">
+                {% for suspect in customers_suspect %}
+                <div class="card-body">
+                  <h5 class="card-title">{{suspect}}</h5>
+                  
+                 
+
+   <a href="{% url 'crm_app:edit_customer_page' suspect.id %}" style="color:inherit">
+    Edit
+  </a> |
+                        <a href="{% url 'crm_app:customer_profile_page' suspect.id %}" style="color:inherit">
+    Profile
+  </a> |
+           
+
+|
+
+
+ 
+
+
+  <a href="{% url 'crm_app:delete_customer' suspect.id %}" style="color: inherit" ... onclick="return confirm('Are you sure you want to delete customer {{customer.f_name}} {{customer.l_name}}?')">
+    Delete
+  </a>
+
+
+                </div>
+                <hr></hr>
+                {% endfor %}
+               
+                <td class="col-sm-2  "><div class="card " style="width:10rem; ">
+                    {% for prospect in customers_prospect %}
+                    <div class="card-body">
+                      <h5 class="card-title">{{prospect}}</h5>
+                      
+                      
+    
+    <a href="{% url 'crm_app:edit_customer_page' prospect.id %}" style="color:inherit">
+        Edit
+      </a> |
+            <a href="{% url 'crm_app:customer_profile_page' prospect.id %}" style="color:inherit">
+        Profile
+      </a> |
+
+
+      
+
+      <a href="{% url 'crm_app:delete_customer' prospect.id %}" style="color: inherit" ... onclick="return confirm('Are you sure you want to delete customer {{customer.f_name}} {{customer.l_name}}?')">
+        Delete
+      </a>
+                           
+    
+                    </div>
+                    <hr></hr>
+                    {% endfor %}
+
+
+                    <td class="col-sm-2  "><div class="card " style="width:10rem; ">
+                        {% for approch in customers_approch %}
+                        <div class="card-body">
+                          <h5 class="card-title">{{approch}}</h5>
+                          
+                         
+        
+        <a href="{% url 'crm_app:edit_customer_page' approch.id %}" style="color:inherit">
+            Edit
+          </a> |
+            <a href="{% url 'crm_app:customer_profile_page' approch.id %}" style="color:inherit">
+            Profile
+          </a> |
+
+         
+
+          <a href="{% url 'crm_app:delete_customer' approch.id %}" style="color: inherit" ... onclick="return confirm('Are you sure you want to delete customer {{customer.f_name}} {{customer.l_name}}?')">
+            Delete
+          </a>
+                                
+      
+        
+                        </div>
+                        <hr></hr>
+                        {% endfor %}
+
+                        <td class="col-sm-2  "><div class="card " style="width:10rem; ">
+                            {% for negotiate in customers_negotiate %}
+                            <div class="card-body">
+                              <h5 class="card-title">{{negotiate}}</h5>
+                              
+                              
+            
+            <a href="{% url 'crm_app:edit_customer_page' negotiate.id %}" style="color:inherit">
+                Edit
+              </a> |
+                                    <a href="{% url 'crm_app:customer_profile_page' negotiate.id %}" style="color:inherit">
+                Profile
+              </a> |
+
+             
+
+              <a href="{% url 'crm_app:delete_customer' negotiate.id %}" style="color: inherit" ... onclick="return confirm('Are you sure you want to delete customer {{customer.f_name}} {{customer.l_name}}?')">
+                Delete
+              </a>
+                                    
+       
+            
+                            </div>
+                            <hr></hr>
+                            {% endfor %}
+
+                            <td class="col-sm-2  "><div class="card " style="width:10rem; ">
+                                {% for won in customers_won %}
+                                <div class="card-body">
+                                  <h5 class="card-title">{{won}}</h5>
+                                  
+                                 
+                
+                <a href="{% url 'crm_app:edit_customer_page' won.id %}" style="color:inherit" >
+                    Edit
+                  </a> |
+                                        <a href="{% url 'crm_app:customer_profile_page' won.id %}" style="color:inherit">
+                    Profile
+                  </a> |
+
+                
+
+                  <a href="{% url 'crm_app:delete_customer' won.id %}" style="color: inherit" ... onclick="return confirm('Are you sure you want to delete customer {{customer.f_name}} {{customer.l_name}}?')">
+                    Delete
+                  </a>
+                                       
+               
+                
+                                </div>
+                                <hr></hr>
+                                {% endfor %}
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+
+        <!-- Modal: modalAddNewEmployee -->
+        <div class="modal fade" id="modal_add_new_customer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <form method="POST" action="{%url 'crm_app:add_new_customer'%}"> {%csrf_token%}
+                            <div class="form-group">
+                                <label for="sel1">Title:</label>
+                                <select class="form-control" name="title" required>
+                  <option>Mr.</option>
+                  <option>Miss.</option>
+                  <option>Mrs.</option>
+                  <option>Dr.</option>
+                  <option>Prof.</option>
+                  <option>Eng.</option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email" name="email" required>
+                            </div>
+
+                              
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Telephone Number" name="telephone" required>
+                                <div class="form-group">
+                                    <label for="sel1">Gender:</label>
+                                    <select class="form-control" name="gender" required>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                                </div>
+                            </div>
+
+                            
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger" type="reset">Close</button>
+                        <button class="btn btn-danger" type="submit">Save</button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- Modal: modalAddNewCustomer -->
+
+    </div>
+</div>
+{%endblock content%}

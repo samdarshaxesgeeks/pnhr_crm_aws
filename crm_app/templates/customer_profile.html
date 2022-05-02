@@ -1,0 +1,650 @@
+{% extends 'crm/base.html'%} {% load static %}
+{% block page_title %}
+{{customer.first_name}} {{customer.last_name}}
+{% endblock %}
+{% block content %}
+<div class="container mt-5"><div class="my-3 mx-4">
+    <a type="button" class="btn btn-danger" href="{% url 'crm_app:edit_customer_page' customer.id %}">Edit</a>
+    <a type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#modal_add_new_customer">Create</a>
+  </div>
+  
+  <hr>
+  <div class=" d-flex justify-content-between  ">
+  <div class="mx-4 ">
+
+    <a type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#modal_add_new_contract">New Contract</a>
+  
+  {% comment %} <button type="button" class="btn btn-light btn-sm p-1"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+    
+    <a href=""data-target="#modal_add_new_whatsapp"> <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+  </svg> Send Message on Whatsapp</button></a> {% endcomment %}
+  <button class="btn btn-primary " data-toggle="modal" data-target="#modal_add_new_whatsapp">Whatsapp
+  </button>
+   
+   
+</div>
+  <div class="d-flex justify-content-center flex-wrap " style="gap: 10px;"> 
+    <h3>STATUS = {{customer.status}}</h3>
+  {% comment %} <button type="button" class="btn-sm btn btn-outline-primary " value={{customer.state.suspect}} >Suspect</button>
+  <button type="button" class="btn-sm btn btn-outline-secondary ">Prospect</button>
+  <button type="button" class="btn-sm btn btn-outline-secondary ">Approach</button>
+  <button type="button" class="btn-sm btn btn-outline-danger ">Negotiate</button>
+  <a href="{% url 'crm_app:msg' %}"><button type="button" class="btn btn-outline-success ">WA</button></a>  {% endcomment %}
+</div>
+</div>
+  <hr> 
+
+  <div class=" col-sm-9  d-flex justify-content-end  ">
+    <a type="button" class="btn btn-light border mx-2" data-toggle="modal" data-target="#modal_add_meeting">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
+      <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+    </svg> Meeting</a>
+    <a type="button" class="btn btn-light border"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-bar-contract" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M3.646 14.854a.5.5 0 0 0 .708 0L8 11.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708zm0-13.708a.5.5 0 0 1 .708 0L8 4.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zM1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8z"/>
+    </svg> Contracts</a>
+  </div>
+  
+  <div class="container">
+                    
+      <div class="row mt-5">
+          <div class="col-lg-3 col-md-3 col-12">
+            <label for="inputEmail3"><b>Customer:</b></label>
+          </div>
+            <div class="col-lg-3 col-md-3 col-12">
+            <span class="">{{customer.first_name}} {{customer.last_name}}</span>
+          </div>
+          
+          <div class="col-lg-3 col-md-3 col-12">
+              <label for="inputEmail3"><b>Email:</b></label>
+              </div>
+              <div class="col-lg-3 col-md-3 col-12">
+              <span class=""> {{customer.email}}</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12">
+              <label for="inputEmail3"><b>Service Type:</b></label>
+              </div>
+              <div class="col-lg-3 col-md-3 col-12">
+              <span class=""> {{customer.status}}</span>
+            </div>
+            
+            <div class="col-lg-3 col-md-3 col-12">
+              <label for="inputEmail3"><b>Mobile</b></label>
+              </div>
+              <div class="col-lg-3 col-md-3 col-12">
+              <span class=""> {{customer.telephone}}</span>
+            </div>
+      
+            </div>
+           
+              <div class="card card-profile">
+                  <div class="card-body">
+                      <h4 class="card-title">Details</h4>
+
+                      <div class="card-description">
+                        {% if customer.customerdetails %}
+                          <table class="table">
+
+                                <tr>
+                                  <th scope="row">Date Of Birth</th>
+                                  <td>{{customer.customerdetails.c_date_of_birth}}</td>
+                              </tr>
+                             
+                              <tr>
+                                <th scope="row">Age</th>
+                                <td>{{customer.customerdetails.age}}
+                            </tr>
+                            
+                              <tr>
+                                  <th scope="row">Division</th>
+                                  <td>{{customer.customerdetails.division}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">County</th>
+                                  <td>{{customer.customerdetails.county}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">Sub County</th>
+                                  <td>{{customer.customerdetails.sub_county}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">Passport No</th>
+                                  <td>{{customer.customerdetails.parish}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">City</th>
+                                  <td>{{customer.customerdetails.village}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">Address</th>
+                                  <td>{{customer.customerdetails.address}}
+                              </tr>
+                              <tr>
+                                  <th scope="row">Telephone</th>
+                                  <td>{{customer.customerdetails.telephone}}
+                              </tr>
+                          </table>
+                          <a href="#" class="btn btn-primary btn-round" data-toggle="modal"
+                             data-target="#modal_edit_home_address"> <i class="fa fa-edit"></i> Edit</a>
+                          {% else %}
+                          <a href="#" class="btn btn-danger btn-round" data-toggle="modal"
+                             data-target="#modal_add_home_address"> <i class="fa fa-plus"></i></a>
+                           {% endif%}
+                      </div>
+                  </div>
+              </div>
+           
+            <div class="card card-profile">
+              <div class="card-body">
+                  <h4 class="card-title">Bank Details</h4>
+
+                  <div class="card-description">
+                      {% if customer.customerbankdetail %}
+                      <div class="table-responsive">
+                          <table class="table">
+                              <tr >
+                                <th scope="row">Bank Name</th>
+                                  <td>{{customer.customerbankdetail.name_of_bank}}</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Bank Branch</th>
+                                  <td>{{customer.customerbankdetail.branch}}</td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">Bank Account</th>
+                                  <td>{{customer.customerbankdetail.bank_account}}</td>
+                              </tr>
+
+                          </table>
+                      </div>
+                      <a href="#" class="btn btn-primary btn-round" data-toggle="modal"
+                         data-target="#modal_edit_bank_details"> <i class="fa fa-edit"></i> Edit</a>
+                      {% else %}
+                      <a href="#" class="btn btn-danger btn-round" data-toggle="modal"
+                         data-target="#modal_add_bank_details"> <i class="fa fa-plus"></i></a>
+                      {% endif%}
+                  </div>
+              </div>
+          </div>
+              
+      
+
+
+            <!--#modal_add_meeting-->
+            <div class="modal fade" id="modal_add_meeting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body">
+                            <div class="clearfix">
+                            <a class="btn btn-danger d-flex justify-content-center" href="{% url 'cal:calendar' %}"> Calendar </a>
+                          </div>
+                          
+                          {% if form.errors %}
+                              {% for field in form %}
+                                  {% for error in field.errors %}
+                                      <div class="alert alert-danger">
+                                          {{ field.label }} <strong>{{ error|escape }}</strong>
+                                      </div>
+                                  {% endfor %}
+                              {% endfor %}
+                              {% for error in form.non_field_errors %}
+                                  <div class="alert alert-danger">
+                                      {{ field.label }} <strong>{{ error|escape }}</strong>
+                                  </div>
+                              {% endfor %}
+                          {% endif %}
+                          
+                          <form method="post">
+                            {% csrf_token %}
+                            <table class="form form-table">
+                              {{ form }}
+                              <tr><td colspan="2"><button type="submit" class="btn btn-danger d-flex justify-content-end"> Submit </button></td></tr>
+                            </table>
+                          </form>
+    
+                    </div>
+                </div></div></div>
+
+            <!--#modal_add_meeting-->
+            
+                 <!-- Modal: modalAddNewEmployee -->
+        <div class="modal fade" id="modal_add_new_customer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <form method="POST" action="{%url 'crm_app:add_new_customer'%}"> {%csrf_token%}
+                            <div class="form-group">
+                                <label for="sel1">Title:</label>
+                                <select class="form-control" name="title" required>
+                  <option>Mr.</option>
+                  <option>Miss.</option>
+                  <option>Mrs.</option>
+                  <option>Dr.</option>
+                  <option>Prof.</option>
+                  <option>Eng.</option>
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last name" name="last_name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email" name="email" required>
+                            </div>
+
+                              
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Telephone Number" name="telephone" required>
+                                <div class="form-group">
+                                    <label for="sel1">Gender:</label>
+                                    <select class="form-control" name="gender" required>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                                </div>
+                            </div>
+
+                            
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger" type="reset">Close</button>
+                        <button class="btn btn-danger" type="submit">Save</button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- Modal: modalAddNewCustomer -->
+            
+                 <!-- Modal: modal_add_new_whatsapp -->
+        <div class="modal fade" id="modal_add_new_whatsapp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <!--Header-->
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">Send Message in Whatsapp</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+                  </div>
+                  <!--Body-->
+                  <div class="modal-body">
+                      <form method="POST" action="{%url 'crm_app:add_new_customer'%}"> {%csrf_token%}
+                          <div class="form-group">
+                              
+                          </div>
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Telephone" name="telephone" required>
+                          </div>
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Message" name="message" required>
+                          </div>
+                          
+
+                            
+                         
+                          
+                  </div>
+                  <!--Footer-->
+                  <div class="modal-footer">
+                      <button class="btn btn-outline-danger" type="reset">Close</button>
+                      <button class="btn btn-danger" type="submit">Send</button>
+                  </div>
+                  </form>
+
+              </div>
+          </div>
+      </div>
+            
+            
+        </div>
+    
+      </div>
+
+      <!-- Modal: modalAddNewContact -->
+      <div class="modal fade" id="modal_add_new_contract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Add New Contract</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <form method="POST" action="#" enctype="multipart/form-data"> {%csrf_token%}
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Enter reference number" name="reference_number" required>
+                            <small>Reference number should be unique for each record</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Position:</label>
+                            <select class="form-control" name="position" required>
+                                <option>=== Select Position ===</option>
+                                {%for position in positions%}
+                                <option value={{position.id}}>{{position}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contract Type:</label>
+                            <select class="form-control" name="contract_type" required>
+                                <option>=== Select Contract Type ===</option>
+                                <option value="Permanent">Permanent</option>
+                                <option value="Probational">Probational</option>
+                                <option value="Internship">Internship</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Employee:</label>
+                            <select class="form-control" name="employee" required>
+                                <option>=== Select Employee ===</option>
+                                {%for employee in employees%}
+                                <option value={{employee.id}}>{{employee}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="effective_date">Effective Date</label>
+                            <input type="date" class="form-control" id="effective_date" placeholder="Enter Effective Date" name="effective_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiry_date">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiry_date" placeholder="Enter Expiry Date" name="expiry_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Risk:</label>
+                            <select class="form-control" name="risk" required>
+                                <option>=== Select Risk ===</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+
+                        <input type="file" name="document">
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                    <button class="btn btn-outline-danger" type="reset">Close</button>
+                    <button class="btn btn-danger" type="submit">Save</button>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal: modalAddNewEmployee -->
+    <!-- modal Add Home Address -->
+    <div class="modal fade" id="modal_add_home_address" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <!--Header-->
+           <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel">Add {{customer.first_name}}'s Details</h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">×</span>
+               </button>
+           </div>
+           <!--Body-->
+           <div class="modal-body">
+
+               <form method="POST" action="{%url 'crm_app:add_new_contact'%}"> {%csrf_token%}
+               
+                  <div class="form-group">
+                       <input type="Date" class="form-control" placeholder="Date Of Birth"
+                              name="c_date_of_birth" value="{{customer.customerdetails.c_date_of_birth}}" required>
+                   </div>
+                   <div class="form-group">
+                    <input type="text" class="form-control" placeholder="age"
+                           name="age" value="{{customer.customerdetails.age}}" required>
+                </div>
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter home division"
+                              value="{{customer.customerdetails.division}}" name="division" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter home county" name="county"
+                              value="{{customer.customerdetails.county}}" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter home sub county"
+                              value="{{customer.customerdetails.sub_county}}" name="sub_county" required>
+                   </div>
+                  
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter village" name="village"
+                              value="{{customer.customerdetails.village}}" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter address" name="address"
+                              value="{{customer.customerdetails.address}}" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="text" class="form-control" placeholder="Enter telephone" name="telephone"
+                              value="{{customer.customerdetails.telephone}}" required>
+                   </div>
+                   <input type="hidden" name="customer_id" value={{customer.id}}>
+           </div>
+           <!--Footer-->
+           <div class="modal-footer">
+               <button class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"
+                       type="reset">Close
+               </button>
+               <button class="btn btn-danger" type="submit">Save</button>
+           </div>
+           </form>
+
+       </div>
+   </div>
+</div>
+
+
+
+  {% comment %} modal_edit_home_address {% endcomment %}
+
+  <div class="modal fade" id="modal_edit_home_address" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+ <div class="modal-dialog" role="document">
+     <div class="modal-content">
+         <!--Header-->
+         <div class="modal-header">
+             <h4 class="modal-title" id="myModalLabel">Edit {{employee.first_name}}'s Customer Details</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">×</span>
+             </button>
+         </div>
+         <!--Body-->
+         <div class="modal-body">
+             <form method="POST" action="{%url 'crm_app:edit_contact'%}"> {%csrf_token%}
+     
+              <div class="form-group">
+                     <label>Date Of Birth</label>
+                     <input type="date" class="form-control" placeholder="Enter home district"
+                            name="date_of_birth" value="{{customer.customerdetails.date_of_birth}}" required>
+                 </div>
+                 <div class="form-group">
+                  <label>Age</label>
+                  <input type="text" class="form-control" placeholder="Enter home district"
+                         name="age" value="{{customer.customerdetails.age}}" required>
+              </div>
+                 <div class="form-group">
+                     <label for="">Division</label>
+                     <input type="text" class="form-control" placeholder="Enter home division"
+                            value="{{customer.customerdetails.division}}" name="division" required>
+                 </div>
+
+                 <div class="form-group">
+                     <label for="">County</label>
+                     <input type="text" class="form-control" placeholder="Enter home county" name="county"
+                            value="{{customer.customerdetails.county}}" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="">Sub County</label>
+                     <input type="text" class="form-control" placeholder="Enter home sub county"
+                            value="{{customer.customerdetails.sub_county}}" name="sub_county" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="">Passport No</label>
+                     <input type="text" class="form-control" placeholder="Passport No" name="parish"
+                            value="{{customer.customerdetails.parish}}" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="">Village</label>
+                     <input type="text" class="form-control" placeholder="Enter village" name="village"
+                            value="{{customer.customerdetails.village}}" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="">Address</label>
+                     <input type="text" class="form-control" placeholder="Enter address" name="address"
+                            value="{{customer.customerdetails.address}}" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="">Telephone</label>
+                     <input type="text" class="form-control" placeholder="Enter telephone" name="telephone"
+                            value="{{customer.customerdetails.telephone}}" required>
+                 </div>
+                 <input type="hidden" name="customer_id" value={{customer.id}}>
+         </div>
+         <!--Footer-->
+         <div class="modal-footer">
+             <button data-dismiss="modal" aria-label="Close" class="btn btn-outline-danger"
+                     type="reset">Close
+             </button>
+             <button class="btn btn-danger" type="submit">Save</button>
+         </div>
+         </form>
+
+     </div>
+ </div>
+</div>
+
+
+<!-- modal Edit Bank Details -->
+<div class="modal fade" id="modal_edit_bank_details" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Edit {{customer.first_name}}'s Bank Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+
+          <form method="POST" action="{%url 'crm_app:edit_bank'%}"> {%csrf_token%}
+              <div class="form-group">
+                  <label for="bank_name">Bank Name</label>
+                  <input type="text" class="form-control" placeholder="Enter Bank Name" name="bank_name"
+                         value="{{customer.customerbankdetail.name_of_bank}}" required>
+              </div>
+              <div class="form-group">
+                  <label for="bank_branch">Bank Branch</label>
+                  <input type="text" class="form-control" placeholder="Enter Bank Branch"
+                         value="{{customer.customerbankdetail.branch}}" name="bank_branch" required>
+              </div>
+              <div class="form-group">
+                  <label for="bank_account">Bank Account</label>
+                  <input type="number" class="form-control" placeholder="Enter Bank Account"
+                         name="bank_account" value="{{customer.customerbankdetail.bank_account}}" required>
+              </div>
+
+              <input type="hidden" name="customer_id" value={{customer.id}}>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+          <button class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"
+                  type="reset">Close
+          </button>
+          <button class="btn btn-danger" type="submit">Save</button>
+      </div>
+      </form>
+
+  </div>
+</div>
+</div>
+
+<!-- modal Add Bank Details -->
+<div class="modal fade" id="modal_add_bank_details" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: auto !important">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Add {{customer.first_name}}'s Bank Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+
+          <form method="POST" action="{%url 'crm_app:add_new_bank'%}"> {%csrf_token%}
+              <div class="form-group">
+
+                  <input type="text" class="form-control" placeholder="Enter Bank Name" name="bank_name"
+                         value="{{customer.customerbankdetail.name_of_bank}}" required>
+              </div>
+              <div class="form-group">
+
+                  <input type="text" class="form-control" placeholder="Enter Bank Branch"
+                         value="{{customer.customerbankdetail.branch}}" name="bank_branch" required>
+              </div>
+              <div class="form-group">
+
+                  <input type="number" class="form-control" placeholder="Enter Bank Account"
+                         name="bank_account" value="{{customer.customerbankdetail.bank_account}}" required>
+              </div>
+
+              <input type="hidden" name="customer_id" value={{customer.id}}>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+          <button class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close"
+                  type="reset">Close
+          </button>
+          <button class="btn btn-danger" type="submit">Save</button>
+      </div>
+      </form>
+
+  </div>
+</div>
+</div>
+
+
+
+  
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  
+{%endblock%}

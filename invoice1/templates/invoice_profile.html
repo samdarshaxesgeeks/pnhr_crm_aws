@@ -1,0 +1,236 @@
+{%extends 'crm/base.html'%}
+{% load static %}
+{%block page_title %}  {%endblock%} 
+{% block new_script %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">>
+
+    <style>
+      .row input{
+            border-style: none;
+             /* font-weight:bold; */
+            width:80%;
+            font-size: medium;
+      }
+      .row h2,h3,h4,h5{
+          font-weight:bold;
+      }
+    </style>
+    
+    {% endblock new_script %}
+    {%block content%}
+
+<form action="" method="POST" class="mt-5">
+    {% csrf_token %}
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="container">
+
+    <h2 class="text-center mb-2" style="font-weight:bold;">Tax Invoice</h2>
+    <div class="row">
+      <div class="col-sm-2">
+        <img src="{% static 'assets/img/favicon.png' %}" alt="img" srcset="" style="width: 100%;">
+      </div>
+
+        <div class="col-sm-6 bold">
+          <h2>PN-HR CONSULTING</h2>
+          <h5> Phone: +971-55-4723041</h5>
+          <h5> Email: care@pnhrconsulting.com</h5>
+          <h5>1646, Damas Tower, Rolla, Sharjah, UAE</h5>
+          <h5>Mon-Sunday: 10:00AM - 7:00PM</h5>
+        </div>
+        <div class="col-sm-4" readonly="readonly">
+          <p style="font-size: 18px">Invoice No :&nbsp;<span style="font-weight: 700;">{{invoice.invoice_no}}</span></p>
+          <h3> Date : {{invoice.invoice_date}}</h3>
+        </div>
+    </div>
+
+
+    <div class="row mt-2"> 
+        <div class="col-sm-4">
+            <h3 >BILL  TO</h3> <br>
+            <h5>Name : {{invoice.b_name}}</h5>
+            <h5>E-mail : {{invoice.b_email}}</h5>
+            <h5>State :  {{invoice.b_state}}</h5>
+            <b>Address : </b> <br><textarea name="address1" value= cols="30" rows="3"  style="width: 95%; border-style: none; font-weight:bold;font-size: medium;"  >{{invoice.b_address}}</textarea>
+        </div>
+        <div class="col-sm-4">
+            <h3 >SHIP TO</h3> <br>
+            <h5>Name :{{invoice.s_name}}</h5>
+            <h5>E-mail :{{invoice.s_email}}</h5>
+            <h5>State :{{invoice.s_state}}</h5>
+         <b>Address : </b> <br>  <textarea name="address2"  value=cols="30" rows="3" style="width: 95%; border-style: none; font-weight:bold;font-size: medium;">{{invoice.s_address}} </textarea>
+        </div>
+        <div class="col-sm-4">
+            <h3 >PLACE OF SUPPLY</h3> <br>
+            <b>Address : </b> <br>  <textarea name="address3"  value=cols="30" rows="3"  style="width: 95%; border-style: none; font-weight:bold;font-size: medium;" >{{invoice.Address}}</textarea>
+        </div>
+    </div>
+
+
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover" id="tab_logic">
+            <thead>
+              <tr>
+                <th class="text-center"> # </th>
+                <th class="text-center"> Product </th>
+                <th class="text-center"> Price </th>
+                <th class="text-center"> Quantity </th>
+                <th class="text-center">TAX</th>
+                <th class="text-center"> Total </th>
+              </tr>
+            </thead>
+            <tbody>
+        
+              {% for items in product %}
+              <tr>
+                <td> {{ items.id }}</td>
+                <td>{{items.product}}</td>
+
+                <td>{{items.price}}</td>
+
+                <td>{{items.qty}}</td>
+
+                <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                   {{items.tax}}
+                  <div class="input-group-addon">%</div>
+                </div></td>
+
+
+                <td>  {{items.total}}</td>
+              </tr>
+              {% endfor %}
+           
+           <tr id='addr1'></tr>
+           
+              <tr>
+                <th class="text-center">Sub Total</th>
+                <td class="text-center"><h4>{{invoice.sub_total}}</h4></td>
+              </tr> 
+              <!-- <tr>
+                <th class="text-center">TAX</th>
+                <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                    <input type="number" class="form-control" id="tax" placeholder="0">
+                    <div class="input-group-addon">%</div>
+                  </div></td>
+              </tr> -->
+              <tr>
+                <th class="text-center">Tax Amount</th>
+                <td class="text-center"><h4>{{product.tax_amount}} </h4></td>
+              </tr>
+              <tr>
+                <th class="text-center">Grand Total</th>
+                <td class="text-center"><h4>{{product.grand_total}}  </h4 ></td>
+              </tr>
+            </tbody>
+          </table>
+            <div class="d-flex justify-content-end align-items-center">
+                <div class="input-item">
+                    <label for="discount-percentage"><b>Amount Deposit :</b></label>
+                    <input type="text" id="discount-percentage" name="amount_deposit" class="form-control"  value={{invoice.amount_deposit}}>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end align-items-center">
+                <div class="input-item">
+                    <label for="discount-amount"> <b>Due Amount :</b> </label>
+                    <input type="text" id="discount-amount" name="amount_due" class="form-control" readonly="readonly" value={{invoice.amount_due}}>
+                </div>
+            </div>
+        </div>
+          <br> <br>
+
+      <div class="row mt-4">
+        <div class="col-sm-9">
+            <h4><b>Declaration</b></h4>
+            <p>We declare that this  invoice the actual price of the goods described and that all particulars are true and correct .</p>
+       </div>
+       <div class="col-sm-3 mt-5">
+           <p>Authorized Signature</p>
+       </div>
+  
+       </div>
+    </div>
+    <button class="btn btn-primary" value="">save</button>
+    <button class="btn btn-primary" onclick="window.print()">Print</button>
+    <button class="btn btn-primary" value="">send</button>
+
+    </div>
+
+
+
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+ <script>
+        const calculate = document.querySelector('.calculate');
+        calculate.addEventListener('click', (e) => {
+        e.preventDefault();
+        const billAmt = document.getElementById('total_amount').value;
+        const percentage = document.getElementById('discount-percentage').value;
+        const discountAmt = document.getElementById('discount-amount');
+        const FinalPay = document.getElementById('pay');
+        discountAmt.value = billAmt - percentage;
+        FinalPay.value = billAmt - discountAmt.value;
+        });
+    </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+
+$(document).ready(function(){
+    var i=1;
+    $("#add_row").click(function(){b=i-1;
+      	$('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+      	$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      	i++;
+  	});
+    $("#delete_row").click(function(){
+    	if(i>1){
+		$("#addr"+(i-1)).html('');
+		i--;
+		}
+		calc();
+	});
+
+	$('#tab_logic tbody').on('keyup change',function(){
+		calc();
+	});
+	$('#tax').on('keyup change',function(){
+		calc_total();
+	});
+
+
+});
+
+function calc()
+{
+	$('#tab_logic tbody tr').each(function(i, element) {
+		var html = $(this).html();
+		if(html!='')
+		{
+			var qty = $(this).find('.qty').val();
+			var price = $(this).find('.price').val();
+			$(this).find('.total').val(qty*price);
+
+			calc_total();
+		}
+    });
+}
+
+function calc_total()
+{
+	total=0;
+	$('.total').each(function() {
+        total += parseInt($(this).val());
+    });
+	$('#sub_total').val(total.toFixed(2));
+	tax_sum=total/100*$('#tax').val();
+	$('#tax_amount').val(tax_sum.toFixed(2));
+	$('#total_amount').val((tax_sum+total).toFixed(2));
+}
+
+</script>
+
+{%endblock content%}

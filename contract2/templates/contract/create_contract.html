@@ -1,0 +1,699 @@
+{%extends 'crm/base.html'%}
+{% load static %}
+{%block page_title %} Contract {%endblock%} 
+{% block new_script %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- editor  -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
+<!-- payment  -->
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title>Cobtract</title>
+</head>
+<style>
+.row label{
+
+  font-weight: bold;
+}
+.col-sm-2{
+    font-weight: bold;
+    /* border-style: none; */
+}
+</style>
+    {% endblock new_script %}
+    {%block content%}
+    <div class="container">
+        <h2 class="mt-5">Contact/New</h2>
+        <form action="" method="POST">
+        
+        {% csrf_token %}
+          
+          <div class="row mt-5" style="font-weight: bold;">
+            <div class="col-sm-6">
+              Customer : <select input type="text" name="customer" id="customer" class="form-select" aria-label="Default select example" required>
+                {% for i in customer  %}
+                <option selected>Open this select menu</option>
+                <option>{{i.first_name }} {{i.last_name }}</option>
+                {% endfor %}
+              
+              </select> <br>
+                 Apply Country : <select input type="text" name="country" id="country" class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Anguilla">Anguilla</option>
+                <option value="Antartica">Antarctica</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Aruba">Aruba</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Azerbaijan">Azerbaijan</option>
+                <option value="Bahamas">Bahamas</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Belize">Belize</option>
+                <option value="Benin">Benin</option>
+                <option value="Bermuda">Bermuda</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Bosnia and Herzegowina">Bosnia and Herzegowina</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Bouvet Island">Bouvet Island</option>
+                <option value="Brazil">Brazil</option>
+                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Cape Verde">Cape Verde</option>
+                <option value="Cayman Islands">Cayman Islands</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Chad">Chad</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Christmas Island">Christmas Island</option>
+                <option value="Cocos Islands">Cocos (Keeling) Islands</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Comoros">Comoros</option>
+                <option value="Congo">Congo</option>
+                <option value="Congo">Congo, the Democratic Republic of the</option>
+                <option value="Cook Islands">Cook Islands</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cota D'Ivoire">Cote d'Ivoire</option>
+                <option value="Croatia">Croatia (Hrvatska)</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czech Republic">Czech Republic</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="East Timor">East Timor</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egypt</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Eritrea">Eritrea</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Falkland Islands">Falkland Islands (Malvinas)</option>
+                <option value="Faroe Islands">Faroe Islands</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="France Metropolitan">France, Metropolitan</option>
+                <option value="French Guiana">French Guiana</option>
+                <option value="French Polynesia">French Polynesia</option>
+                <option value="French Southern Territories">French Southern Territories</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="Greece">Greece</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="Guam">Guam</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Heard and McDonald Islands">Heard and Mc Donald Islands</option>
+                <option value="Holy See">Holy See (Vatican City State)</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Iran">Iran (Islamic Republic of)</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Israel">Israel</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Kiribati">Kiribati</option>
+                <option value="Democratic People's Republic of Korea">Korea, Democratic People's Republic of</option>
+                <option value="Korea">Korea, Republic of</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                <option value="Lao">Lao People's Democratic Republic</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Macau">Macau</option>
+                <option value="Macedonia">Macedonia, The Former Yugoslav Republic of</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Mali">Mali</option>
+                <option value="Malta">Malta</option>
+                <option value="Marshall Islands">Marshall Islands</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Mayotte">Mayotte</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Micronesia">Micronesia, Federated States of</option>
+                <option value="Moldova">Moldova, Republic of</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Mongolia">Mongolia</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Namibia">Namibia</option>
+                <option value="Nauru">Nauru</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Niger">Niger</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Niue">Niue</option>
+                <option value="Norfolk Island">Norfolk Island</option>
+                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                <option value="Norway">Norway</option>
+                <option value="Oman">Oman</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Palau">Palau</option>
+                <option value="Panama">Panama</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Peru">Peru</option>
+                <option value="Philippines">Philippines</option>
+                <option value="Pitcairn">Pitcairn</option>
+                <option value="Poland">Poland</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Reunion">Reunion</option>
+                <option value="Romania">Romania</option>
+                <option value="Russia">Russian Federation</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option> 
+                <option value="Saint LUCIA">Saint LUCIA</option>
+                <option value="Saint Vincent">Saint Vincent and the Grenadines</option>
+                <option value="Samoa">Samoa</option>
+                <option value="San Marino">San Marino</option>
+                <option value="Sao Tome and Principe">Sao Tome and Principe</option> 
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Sierra">Sierra Leone</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Slovakia">Slovakia (Slovak Republic)</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Solomon Islands">Solomon Islands</option>
+                <option value="Somalia">Somalia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Georgia">South Georgia and the South Sandwich Islands</option>
+                <option value="Span">Spain</option>
+                <option value="SriLanka">Sri Lanka</option>
+                <option value="St. Helena">St. Helena</option>
+                <option value="St. Pierre and Miguelon">St. Pierre and Miquelon</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Svalbard">Svalbard and Jan Mayen Islands</option>
+                <option value="Swaziland">Swaziland</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Syria">Syrian Arab Republic</option>
+                <option value="Taiwan">Taiwan, Province of China</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Tanzania">Tanzania, United Republic of</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Togo">Togo</option>
+                <option value="Tokelau">Tokelau</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Turkmenistan">Turkmenistan</option>
+                <option value="Turks and Caicos">Turks and Caicos Islands</option>
+                <option value="Tuvalu">Tuvalu</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Vanuatu">Vanuatu</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Vietnam">Viet Nam</option>
+                <option value="Virgin Islands (British)">Virgin Islands (British)</option>
+                <option value="Virgin Islands (U.S)">Virgin Islands (U.S.)</option>
+                <option value="Wallis and Futana Islands">Wallis and Futuna Islands</option>
+                <option value="Western Sahara">Western Sahara</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+              </select> <br>
+              Services Type : <select input type="text" name="services_type" id="services_type" class="form-select" aria-label="Default select example" required>
+                <option selected>Open this select menu</option>
+                <option>Business Visa</option>
+                <option>Vsit Visa</option>
+                <option>Investor Visa</option>
+                <option>Permanent Residency</option>
+                <option>Work Permit</option>
+              </select> <br>
+              Contract Date :  <input  class="w-100" type="date" name="contract_date" id="contract_date" required  >
+               <br>  <br>
+            </div>
+          
+            <div class="col-sm-6">
+           
+              Contract Tamplate : <select input type="text" name="contract_tamplate" class="form-select" aria-label="Default select example" required>
+                <option selected>Open this select menu</option>
+                <option >One</option>
+                <option >Two</option>
+                <option >Three</option>
+              </select> <br> 
+              Payment Mode : <select input type="text" name"Payment_mode" id="payment_mode"class="form-select" aria-label="Default select example" required>
+                <option value="pmhr">Open this select menu</option>
+                <option>Chaque</option>
+                <option>Debit Card</option>
+                <option>Credit Card</option>
+              </select> <br> 
+              Service Package : <select input type="text" name="service_Package" id="service_Package" class="form-select" aria-label="Default select example" required >
+
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+              </select> <br>
+            </div>
+           </div>
+           
+           <!--^^^^^^^ upper info ^^^^^^^ -->
+        
+        
+        
+        
+        
+            
+            <ul class="nav nav-tabs text-danger" id="myTab" role="tablist" >
+              <li class="nav-item" role="presentation">
+                <button style="color: #000 !important" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home1" type="button" role="tab" aria-controls="home" aria-selected="true">.</button>
+              </li>  
+              <li class="nav-item" role="presentation">
+                  <button class="nav-link  " style="color: #000 !important" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Order Line</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" style="color: #000 !important" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="profile" aria-selected="false">Payment Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  {% comment %} <button class="nav-link" id="contact-tab" data-bs-toggle="tab" style="color: #000 !important" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contract Template</button> {% endcomment %}
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#document" style="color: #000 !important" type="button" role="tab" aria-controls="profile" aria-selected="false">Document</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab" style="color: #000 !important" aria-controls="contact" aria-selected="false">Other Info</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="home1" role="tabpanel" aria-labelledby="profile-tab"></div>
+        
+                <!-- other lines data  -->
+                <div class="tab-pane fade show " id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+                  <div class="row clearfix">
+                    <div class="col-md-12">
+                      <table class="table table-bordered table-hover" id="tab_logic">
+                        <thead>
+                          <tr>
+                            <th class="text-center"> sr no. </th>
+                            <th class="text-center"> Product </th>
+                            <th class="text-center"> Price </th>
+                            <th class="text-center"> Quantity </th>
+                            <th class="text-center">TAX</th>
+                            <th class="text-center"> Total </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr id='addr0'>
+                            <td>1</td>
+                            <td><input type="text" name='product[]'  placeholder='Enter Product Name' class="form-control" required/></td>
+                            <td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price" step="0.00" min="0" required/></td>
+                            <td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0" min="0"/ required ></td>
+                            <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                              <input type="number" class="form-control" id="tax" placeholder="0" name="tax" required>
+                              <div class="input-group-addon">%</div>
+                            </div></td>
+                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly required/></td>
+                          </tr>
+                          <tr id='addr1'></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row clearfix">
+                    <div class="col-md-12">
+                      <butto id="add_row" class="btn btn-default pull-left">Add Row</butto>
+                      <butto id='delete_row' class="pull-right btn btn-default">-</butto>
+                    </div>
+                  </div>
+                      <div class="row clearfix" style="margin-top:20px">
+                       <div class="col-md-8"> 
+                         <!-- <textarea name="" id="" cols="30" rows="3" class="w-100" placeholder="Write Discription.." style="border-style: none;"></textarea>  -->
+                        </div>
+                        <div class="pull-right col-md-4">
+                          <table class="table table-bordered table-hover" id="tab_logic_total">
+                            <tbody>
+                              <tr>
+                                <th class="text-center">Untaxed Amount</th>
+                                <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+                              </tr>
+                            
+                              <tr>
+                                <th class="text-center">Tax Amount</th>
+                                <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+                              </tr>
+                              <tr>
+                                <th class="text-center">Total</th>
+                                <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div> 
+                <!--  END other lines data  -->
+        
+        
+                 <!--PAYMENT DETAILS-->
+                
+                <div class="tab-pane fade " id="payment" role="tabpanel" aria-labelledby="profile-tab">
+        
+                  <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="inputFormRow">
+                                <div class="input-group mb-3">
+                    
+                                   <div class="col-sm-2">Date</div>
+                                   <div class="col-sm-2">Particulars</div>
+                                   <div class="col-sm-2">Amount</div>
+                                   <div class="col-sm-2">Invoice Number</div>
+                                   <div class="col-sm-2">Payemnt Mode</div>
+                                   <div class="col-sm-2">Transaction Type</div>
+                                    <div class="input-group-append">
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div id="newRow"></div>
+                            <button id="addRow" type="button" class="btn btn-info">Add Row</button>
+                        </div>
+                    </div>
+                </div>
+        
+        
+                </div>
+        
+                <!--END PAYMENT DETAILS-->
+        
+        
+        
+                {% comment %} <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> {% endcomment %}
+                  {% comment %} <!-- <input type="text" name="heading" placeholder="Enter Heading">-->
+               <label><b>Note 1.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 2.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 3.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 4.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 5.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 6.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 7.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 8.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 9.</b></label>    <textarea></textarea>  <br>
+               <label><b>Note 10.</b></label>   <textarea></textarea>  <br>
+               <label><b>Note 11.</b></label>   <textarea></textarea>  <br>
+               <label><b>Note 12.</b></label>   <textarea></textarea>  <br>
+               <label><b>Note 13.</b></label>   <textarea></textarea>  <br>
+               <label><b>Note 14.</b></label>   <textarea></textarea>  <br>
+               <label><b>Note 15.</b></label>   <textarea></textarea>  <br> {% endcomment %}
+        
+                {% comment %} </div> {% endcomment %}
+                <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="profile-tab">
+                  <div class="row mt-5" style="font-weight: bold;">
+                    <div class="col-sm-6">
+                      CV/Resume  : <br><input name="resume" id="resume" type="file" > <br><br>
+                      Emirates ID : <br> <input type="file" name="EmiratesID" id="EmiratesID">  <br><br>
+                      Additional Documents : <br> <input type="file" name=" Additional_Documents"> 
+                    </div>
+                    <div class="col-sm-2">
+                      Passpost Scan Copy :<br> <input type="file" name="Passpost_Scan_Copy"> <br><br>
+                      Ntional ID :<br> <input type="file" name="national_id"> <br>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- other option  -->
+                <div class="tab-pane fade" id="other" role="tabpanel" aria-labelledby="contact-tab">
+                  <div class="row">
+                    <!-- <> this (options)
+                       data  come 
+                       from 
+                       backendsab <>
+                    -->
+                    <div class="col-sm-6">    <h2 class="mt-3 mb-3">Sales</h2> 
+                      <label for="">Salesperson : </label> <br>
+                         <select input type="text" name="Salesperson" id="Salesperson" class="form-select" aria-label="Default select example" required>
+                        <option selected>Open this select menu</option> 
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select><br>
+                          <label for="">Sales Team :</label> <br>
+                         <select input type="text" name="sales_team" id="sales_team" class="form-select" aria-label="Default select example" required>
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select><br>
+                        <label for="">Company :</label> <br>
+                         <select input type="text" name="company" id="company" class="form-select" aria-label="Default select example" required>
+                        <option value="Perfect Network Consulting">Perfect Network Consulting</option>
+                      </select><br>
+                        <label for="">Online Signature : </label> <br>
+                      <input type="checkbox" name="signature_checkbox" id="signature_checkbox"> <br><br>
+                        <label for="">Online Payment :</label> <br>
+                      <input type="checkbox" name="payment_checkbox" id="payment_checkbox" > <br> <br>
+                      <label for="">Customer Reference :</label> <br>
+                         <select input type="text" name="customer_refrance" id="customer_refrance"class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select><br>
+                    </div>
+                    
+                 <div class="col-sm-6">
+                   <h2 class="mt-3 mb-3">Invoicing</h2> 
+                  <label for="">Fiscal Position :</label> <br>
+                  <select input type="text" name="Fiscal_Position" id="Fiscal_Position" class="form-select" aria-label="Default select example" required>
+                 <option selected>Open this select menu</option>
+                 <option value="1">One</option>
+                 <option value="2">Two</option>
+                 <option value="3">Three</option>
+               </select><br>
+                 </div>
+                  </div>
+              </div>
+          </div>  
+          <button input type="submit" class="btn btn-primary mt-5 mb-5" value="save">save </button>
+        </form>
+          </div>
+          <!-- end  other oprion  -->
+        
+            <!-- Option 1: Bootstrap Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        
+        <script>
+                        $(document).ready(function(){
+                        var i=1;
+                        $("#add_row".click(function(){b=i-1;
+                              $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+                              $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+                              i++; 
+                          });
+                        $("#delete_row".click(function(){
+                            if(i>1){
+                            $("#addr"+(i-1)).html('');
+                            i--;
+                            }
+                            calc();
+                        });
+                        
+                        $('#tab_logic tbody').on('keyup change',function(){
+                            calc();
+                        });
+                        $('#tax').on('keyup change',function(){
+                            calc_total();
+                        });
+                        
+                    
+                    });
+                    
+                    function calc()
+                    {
+                        $('#tab_logic tbody tr').each(function(i, element) {
+                            var html = $(this).html();
+                            if(html!='')
+                            {
+                                var qty = $(this).find('.qty').val();
+                                var price = $(this).find('.price').val();
+                                $(this).find('.total').val(qty*price);
+                                
+                                calc_total();
+                            }
+                        });
+                    }
+                    
+                    function calc_total()
+                    {
+                        total=0;
+                        $('.total').each(function() {
+                            total += parseInt($(this).val());
+                        });
+                        $('#sub_total').val(total.toFixed(2));
+                        tax_sum=total/100*$('#tax').val();
+                        $('#tax_amount').val(tax_sum.toFixed(2));
+                        $('#total_amount').val((tax_sum+total).toFixed(2));
+                    }
+
+                    $(('#addRow').click(function () {
+                      var html = '';
+                      html += '<div id="inputFormRow">';
+                      html += '<div class="input-group mb-3">';
+                      html += '<input type="date" name="title[]" class="form-control m-input" placeholder="xx/xx/xxxx" autocomplete="off">';
+                      html += '<input type="text" name="title[]" class="form-control m-input" placeholder="Name..." autocomplete="off">';
+                      html += '<input type="text" name="title[]" class="form-control m-input" placeholder="0.00" autocomplete="off">';
+                      html += '<input type="text" name="title[]" class="form-control m-input" placeholder="X/XXXX/XX" autocomplete="off">';      
+                      html += '<select class="form-select" aria-label="Default select example"><option selected></option><option value="cheque">Cash</option><option value="cheque">Cheque</option><option value="credit/debit card">Credit/Debit Card</option></select>';
+                      html += '<input type="text" name="title[]" class="form-control m-input" placeholder=".........." autocomplete="off">';
+                      html += '<div class="input-group-append">';
+                      html += '<button id="removeRow" type="button" class="btn btn-danger">-</button>';
+                      html += '</div>';
+                      html += '</div>';
+                
+                      $('#newRow').append(html);
+                  });
+                
+                  // remove row
+                  $(document).on('click', '#removeRow', function () {
+                      $(this).closest('#inputFormRow').remove();
+                  });
+
+                  
+                    </script>
+                    <script>
+                      const calculate = document.querySelector('.calculate');
+                      calculate.addEventListener('click', (e) => {
+                      e.preventDefault();
+                      const billAmt = document.getElementById('total_amount').value;
+                      const percentage = document.getElementById('discount-percentage').value;
+                      const discountAmt = document.getElementById('discount-amount');
+                      const FinalPay = document.getElementById('pay');
+                      discountAmt.value = billAmt - percentage;
+                      FinalPay.value = billAmt - discountAmt.value;
+                      });
+                  </script>
+                  <script>
+
+                    $(document).ready(function(){
+                        var i=1;
+                        $("#add_row").click(function(){b=i-1;
+                            $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+                            $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+                            i++;
+                        });
+                        $("#delete_row").click(function(){
+                          if(i>1){
+                        $("#addr"+(i-1)).html('');
+                        i--;
+                        }
+                        calc();
+                      });
+                    
+                      $('#tab_logic tbody').on('keyup change',function(){
+                        calc();
+                      });
+                      $('#tax').on('keyup change',function(){
+                        calc_total();
+                      });
+                    
+                    
+                    });
+                    
+                    function calc()
+                    {
+                      $('#tab_logic tbody tr').each(function(i, element) {
+                        var html = $(this).html();
+                        if(html!='')
+                        {
+                          var qty = $(this).find('.qty').val();
+                          var price = $(this).find('.price').val();
+                          $(this).find('.total').val(qty*price);
+                    
+                          calc_total();
+                        }
+                        });
+                    }
+                    
+                    function calc_total()
+                    {
+                      total=0;
+                      $('.total').each(function() {
+                            total += parseInt($(this).val());
+                        });
+                      $('#sub_total').val(total.toFixed(2));
+                      tax_sum=total/100*$('#tax').val();
+                      $('#tax_amount').val(tax_sum.toFixed(2));
+                      $('#total_amount').val((tax_sum+total).toFixed(2));
+                    }
+                    
+                    </script>
+        
+        
+        
+        
+        
+{%endblock content%}

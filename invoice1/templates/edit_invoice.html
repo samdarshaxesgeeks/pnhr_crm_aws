@@ -1,0 +1,243 @@
+{%extends 'crm/base.html'%}
+{% load static %}
+{%block page_title %}  {%endblock%} 
+{% block new_script %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <style>
+      .row input{
+            border-style: none;
+             /* font-weight:bold; */
+            width:80%;
+            font-size: medium;
+      }
+      .row h2,h3,h4,h5{
+          font-weight:bold;
+      }
+    </style>
+    
+    {% endblock new_script %}
+    {%block content%}
+
+<form action="" method="POST" class="mt-5">
+    {% csrf_token %}
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="container">
+
+    <h2 class="text-center mb-2" style="font-weight:bold;">Tax Invoice</h2>
+    <div class="row">
+      <div class="col-sm-2">
+        <img src="{% static 'assets/img/favicon.png' %}" alt="img" srcset="" style="width: 100%;">
+      </div>
+
+        <div class="col-sm-6 bold">
+          <h2>PN-HR CONSULTING</h2>
+          <h5> Phone: +971-55-4723041</h5>
+          <h5> Email: care@pnhrconsulting.com</h5>
+          <h5>1646, Damas Tower, Rolla, Sharjah, UAE</h5>
+          <h5>Mon-Sunday: 10:00AM - 7:00PM</h5>
+        </div>
+        <div class="col-sm-4">
+          <h5>invoice no.</h5>
+            <input type="text" name="invoice" value={{invoice_no}}  style="font-size: x-large; width: 100%;" readonly="readonly">
+          <h5> Date : <input type="date" name="date" required></h5>
+        </div>
+    </div>
+
+
+    <div class="row mt-2">
+        <div class="col-sm-4">
+            <h3 >BILL  TO</h3> <br>
+            <h5>Name :  <input type="text" placeholder="xxxxxxxxx" name="name" value={{Invoice.b_name}}></h5>
+            <h5>E-mail :  <input type="text" placeholder="xxxxxxxxx@gmail.com" name="email" value={{invoice.b_email}}></h5>
+            <h5>State :  <input type="text" placeholder="xxxxxxxxx" name="state1"  value={{invoice.b_state}}></h5>
+            <b>Address : </b> <br><textarea name="address1" id="" cols="30" rows="3" placeholder="xxxx xxxx xxx xxxxxx"  style="width: 95%; border-style: none; font-weight:bold;font-size: medium;"  value={{invoice.b_address}}></textarea>
+        </div>
+        <div class="col-sm-4">
+            <h3 >SHIP TO</h3> <br>
+            <h5>Name :<input type="text"  name="name2"  value={{invoice.s_name}}></h5>
+            <h5>E-mail :<input type="text" placeholder="xxxxxxxxx@gmail.com" name="gmail1"  value={{invoice.s_email}} ></h5>
+            <h5>State : <input type="text" placeholder="xxxxxxxxx" name="state2"   value={{invoice.s_state}}></h5>
+         <b>Address : </b> <br>  <textarea name="address2" id="" cols="30" rows="3"      style="width: 95%; border-style: none; font-weight:bold;font-size: medium; " value={{invoice.s_address}} ></textarea>
+        </div>
+        <div class="col-sm-4">
+            <h3 >PLACE OF SUPPLY</h3> <br>
+            <b>Address : </b> <br>  <textarea name="address3" id="" cols="30" rows="3" placeholder="xxxx xxxx xxx xxxxxx" style="width: 95%; border-style: none; font-weight:bold;font-size: medium; " value={{invoice.Address}}></textarea>
+        </div>
+    </div>
+
+
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover" id="tab_logic">
+            <thead>
+              <tr>
+                <th class="text-center"> # </th>
+                <th class="text-center"> Product </th>
+                <th class="text-center"> Price </th>
+                <th class="text-center"> Quantity </th>
+                <th class="text-center">TAX</th>
+                <th class="text-center"> Total </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id='addr0'>
+                <td>1</td>
+                <td><input type="text" name='product[]'  placeholder='Enter Product Name' class="form-control"/></td>
+                <td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price" step="0.00" min="0"/></td>
+                <td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0" min="0"/></td>
+                <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                  <input type="number" class="form-control" id="tax" placeholder="0" name="tax1">
+                  <div class="input-group-addon">%</div>
+                </div></td>
+                <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+              </tr>
+              <tr id='addr1'></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12">
+          <butto id="add_row" class="btn btn-default pull-left">Add Row</butto>
+          <butto id='delete_row' class="pull-right btn btn-default">-</butto>
+        </div>
+      </div>
+      <div class="row clearfix" style="margin-top:20px">
+        <div class="col-md-4"></div> <div class="col-md-4"></div>
+        <div class="pull-right col-md-4">
+          <table class="table table-bordered table-hover" id="tab_logic_total">
+            <tbody>
+              <tr>
+                <th class="text-center">Sub Total</th>
+                <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/  value={{invoice. sub_total}}></td>
+              </tr>
+              <!-- <tr>
+                <th class="text-center">TAX</th>
+                <td class="text-center"><div class="input-group mb-2 mb-sm-0">
+                    <input type="number" class="form-control" id="tax" placeholder="0">
+                    <div class="input-group-addon">%</div>
+                  </div></td>
+              </tr> -->
+              <tr>
+                <th class="text-center">Tax Amount</th>
+                <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/ value={{invoice.tax_amount}}></td>
+              </tr>
+              <tr>
+                <th class="text-center">Grand Total</th>
+                <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/ value={{invoice.grand_total}}></td>
+              </tr>
+            </tbody>
+          </table>
+            <div class="col-sm-6">
+                <div class="input-item">
+                    <label for="discount-percentage"><b>Amount Deposit :</b></label>
+                    <input type="text" id="discount-percentage" name="amount_deposit" class="form-control" value={{invoice.amount_deposit}}>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-item">
+                    <label for="discount-amount"> <b>Due Amount :</b> </label>
+                    <input type="text" id="discount-amount" name="amount_due" class="form-control" readonly="readonly"   value={{invoice.amount_due}}>
+                </div>
+            </div>
+        </div>
+          <br> <br>
+           <button type="submit" class="calculate btn btn-primary">calculate</button>
+      <div class="row mt-4">
+        <div class="col-sm-9">
+            <h4><b>Declaration</b></h4>
+            <p>We declare that this  invoice the actual price of the goods described and that all particulars are true and correct .</p>
+       </div>
+       <div class="col-sm-3 mt-5">
+           <p>Authorized Signature</p>
+       </div>
+        {% comment %} <p class="text-center mt-5">this is a computer generated invoice . <button class="btn btn-link" onclick="window.print()">Print</button>
+        </p> {% endcomment %}
+       </div>
+    </div>
+    <button class="btn btn-primary" value="">save</button>
+    <button class="btn btn-link" onclick="window.print()">Print</button>
+    <button class="btn btn-primary" value="">send</button>
+    </div>
+
+
+
+</form>
+
+
+ <script>
+        const calculate = document.querySelector('.calculate');
+        calculate.addEventListener('click', (e) => {
+        e.preventDefault();
+        const billAmt = document.getElementById('total_amount').value;
+        const percentage = document.getElementById('discount-percentage').value;
+        const discountAmt = document.getElementById('discount-amount');
+        const FinalPay = document.getElementById('pay');
+        discountAmt.value = billAmt - percentage;
+        FinalPay.value = billAmt - discountAmt.value;
+        });
+    </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+
+$(document).ready(function(){
+    var i=1;
+    $("#add_row").click(function(){b=i-1;
+      	$('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+      	$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      	i++;
+  	});
+    $("#delete_row").click(function(){
+    	if(i>1){
+		$("#addr"+(i-1)).html('');
+		i--;
+		}
+		calc();
+	});
+
+	$('#tab_logic tbody').on('keyup change',function(){
+		calc();
+	});
+	$('#tax').on('keyup change',function(){
+		calc_total();
+	});
+
+
+});
+
+function calc()
+{
+	$('#tab_logic tbody tr').each(function(i, element) {
+		var html = $(this).html();
+		if(html!='')
+		{
+			var qty = $(this).find('.qty').val();
+			var price = $(this).find('.price').val();
+			$(this).find('.total').val(qty*price);
+
+			calc_total();
+		}
+    });
+}
+
+function calc_total()
+{
+	total=0;
+	$('.total').each(function() {
+        total += parseInt($(this).val());
+    });
+	$('#sub_total').val(total.toFixed(2));
+	tax_sum=total/100*$('#tax').val();
+	$('#tax_amount').val(tax_sum.toFixed(2));
+	$('#total_amount').val((tax_sum+total).toFixed(2));
+}
+
+</script>
+
+{%endblock content%}

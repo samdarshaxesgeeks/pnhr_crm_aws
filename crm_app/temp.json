@@ -1,0 +1,63 @@
+{
+    "result": true,
+    "phone_number": "YOUR-PHONE-NUMBER",
+    "template_name": "new_chat_v1",
+    "parameteres": [
+        {
+            "name": "name",
+            "value": "John"
+        },
+        {
+            "name": "ordernumber",
+            "value": "12345"
+        }
+    ],
+    "contact": {
+        "id": "xxxxxxxxxxxxxxxxxxxxx",
+        "wAid": "YOUR-PHONE-NUMBER",
+        "firstName": "John",
+        "fullName": "John",
+        "phone": "YOUR-PHONE-NUMBER",
+        "source": null,
+        "contactStatus": "VALID",
+        "photo": null,
+        "created": "Jan-13-2022",
+        "customParams": [
+            {
+                "name": "ordernumber",
+                "value": "12345"
+            },
+            {
+                "name": "name",
+                "value": "John"
+            },
+            {
+                "name": "phone",
+                "value": "YOUR-PHONE-NUMBER"
+            }
+        ],
+        "optedIn": false,
+        "isDeleted": false,
+        "lastUpdated": "2022-03-08T09:52:26.403Z",
+        "allowBroadcast": true,
+        "allowSMS": true,
+        "teamIds": [
+            "xxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxxxx"
+        ],
+        "isInFlow": false,
+        "lastFlowId": null,
+        "currentFlowNodeId": null
+    },
+    "model": {
+        "ids": [
+            "xxxxxxxxxxxxxxxxx"
+        ]
+    },
+    "validWhatsAppNumber": true
+}
