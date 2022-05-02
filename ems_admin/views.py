@@ -28,7 +28,7 @@ def manage_users_page(request):
         # check whether it's valid:
         if user_form.is_valid() and soliton_user_form.is_valid():
             user = user_form.save(commit=False)
-            user.set_password('solitonug')
+            user.set_password(user.password)
             user.save()
             soliton_user = soliton_user_form.save(commit=False)
             soliton_user.user = user

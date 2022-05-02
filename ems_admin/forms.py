@@ -1,4 +1,4 @@
-from django.forms import ModelForm, EmailField, TextInput
+from django.forms import CharField, ModelForm, EmailField, PasswordInput, TextInput
 
 from ems_auth.models import User, SolitonUser
 
@@ -10,10 +10,18 @@ class UserForm(ModelForm):
         widget=TextInput(attrs={'placeholder': 'Enter Email', 'class': 'form-control'})
     )
 
+    password = CharField(
+        label='',
+        required=True,
+        widget=PasswordInput(attrs={'placeholder': 'Enter Password', 'class': 'form-control'})
+    )
     class Meta:
         model = User
-        fields = ['email', 'is_superuser', 'is_staff', 'is_active', 'is_hr', 'is_hod', 'is_cfo', 'is_ceo',
+        fields = ['email','password', 'is_superuser', 'is_staff', 'is_active', 'is_hr', 'is_hod', 'is_cfo', 'is_ceo',
                   'is_supervisor']
+
+
+        
 
 
 class SolitonUserForm(ModelForm):

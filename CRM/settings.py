@@ -26,7 +26,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.pnhrconsulting.com','pnhrconsulting.com', '172.31.12.102', 'ec2-3-111-148-181.ap-south-1.compute.amazonaws.com']
 
 
-
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 CRM_APPS = [
